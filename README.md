@@ -1,4 +1,5 @@
 # 📡 RSS Reader
+
 ### Aplicación web para agregar y seguir feeds RSS con actualización automática en tiempo real
 
 ---
@@ -18,15 +19,15 @@ El proyecto representa el salto de aplicaciones Node.js de consola a una **aplic
 ![Webpack](https://img.shields.io/badge/Webpack-5-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black)
 ![Playwright](https://img.shields.io/badge/Playwright-E2E-45ba4b?style=for-the-badge&logo=playwright&logoColor=white)
 
-| Librería | Rol en el proyecto |
-|---|---|
-| `axios` | Peticiones HTTP al proxy para obtener los feeds RSS |
-| `on-change` | Observa mutaciones en el estado y dispara el re-render automáticamente |
-| `yup` | Validación del formulario (URL válida, no duplicada, no vacía) |
-| `i18next` | Internacionalización: todos los textos de la UI viven en archivos de traducción |
-| `Bootstrap 5` | Estilos y componente Modal para la vista previa de posts |
-| `Webpack` | Bundling del proyecto y servidor de desarrollo |
-| `Playwright` | Tests End-to-End que simulan interacciones reales del usuario en el navegador |
+| Librería      | Rol en el proyecto                                                              |
+| ------------- | ------------------------------------------------------------------------------- |
+| `axios`       | Peticiones HTTP al proxy para obtener los feeds RSS                             |
+| `on-change`   | Observa mutaciones en el estado y dispara el re-render automáticamente          |
+| `yup`         | Validación del formulario (URL válida, no duplicada, no vacía)                  |
+| `i18next`     | Internacionalización: todos los textos de la UI viven en archivos de traducción |
+| `Bootstrap 5` | Estilos y componente Modal para la vista previa de posts                        |
+| `Webpack`     | Bundling del proyecto y servidor de desarrollo                                  |
+| `Playwright`  | Tests End-to-End que simulan interacciones reales del usuario en el navegador   |
 
 ---
 
@@ -37,10 +38,10 @@ El proyecto representa el salto de aplicaciones Node.js de consola a una **aplic
 - **Vista previa en modal**: cada post tiene un botón "Vista previa" que abre título y descripción en un modal de Bootstrap
 - **Seguimiento de posts leídos**: los posts visitados cambian visualmente de negrita a gris
 - **Validación completa del formulario** con mensajes de error específicos:
-  - URL inválida → *"El enlace debe ser una URL válida"*
-  - Feed ya agregado → *"El RSS ya existe"*
-  - Error de red → *"Network error"*
-  - XML malformado → *"invalidXml"*
+  - URL inválida → _"El enlace debe ser una URL válida"_
+  - Feed ya agregado → _"El RSS ya existe"_
+  - Error de red → _"Network error"_
+  - XML malformado → _"invalidXml"_
 - **Arquitectura MVC**: separación clara entre estado (`controller.js`), lógica de render (`view.js`) y parseo de datos (`rss.js`)
 - **Proxy CORS**: las peticiones pasan por `allorigins.hexlet.app` para evitar restricciones de CORS del navegador
 
@@ -99,7 +100,7 @@ La solución fue adoptar un patrón inspirado en cómo trabajan los frameworks m
 const state = {
   feeds: [],
   posts: [],
-  form: { status: 'filling', error: null },
+  form: { status: "filling", error: null },
   uiState: { visitedPosts: new Set() },
 };
 ```
@@ -113,7 +114,7 @@ const watchedState = onChange(state, (path, value) => {
 });
 
 // Ahora cuando ocurre un cambio en el estado, el render ocurre solo
-watchedState.form.status = 'success'; // → render() se ejecuta automáticamente
+watchedState.form.status = "success"; // → render() se ejecuta automáticamente
 watchedState.posts.unshift(...newPosts); // → la lista de posts se actualiza sola
 ```
 
@@ -134,14 +135,14 @@ Promise.all(requests).finally(() => {
 
 Los tests simulan interacciones reales de un usuario en el navegador, interceptando las peticiones de red con `page.route()` para controlar las respuestas:
 
-| Test | Escenario |
-|---|---|
-| ✅ Agregar feed válido | Muestra feedback de éxito y lista los posts del feed |
-| ✅ Abrir modal de vista previa | El modal muestra título y descripción del post correcto |
-| ❌ URL inválida | Muestra error sin hacer ninguna petición HTTP |
-| ❌ URL duplicada | Muestra *"El RSS ya existe"* en el segundo intento |
-| ❌ Error de red | La petición es abortada y aparece el mensaje de error de red |
-| ❌ XML malformado | El contenido no es RSS válido y se muestra el error de parsing |
+| Test                           | Escenario                                                      |
+| ------------------------------ | -------------------------------------------------------------- |
+| ✅ Agregar feed válido         | Muestra feedback de éxito y lista los posts del feed           |
+| ✅ Abrir modal de vista previa | El modal muestra título y descripción del post correcto        |
+| ❌ URL inválida                | Muestra error sin hacer ninguna petición HTTP                  |
+| ❌ URL duplicada               | Muestra _"El RSS ya existe"_ en el segundo intento             |
+| ❌ Error de red                | La petición es abortada y aparece el mensaje de error de red   |
+| ❌ XML malformado              | El contenido no es RSS válido y se muestra el error de parsing |
 
 ---
 
@@ -176,9 +177,3 @@ rss-reader/
 
 **Pool Rimari** — Desarrollador Full-stack JavaScript
 [![GitHub](https://img.shields.io/badge/GitHub-Porico94-181717?style=flat&logo=github)](https://github.com/Porico94)
-
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Porico94/fullstack-javascript-project-137/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Porico94/fullstack-javascript-project-137/actions)
-
-## Sitio web en Vercel
-Puedes ver la aplicación funcionando aquí: [Ver en Vercel](https://fullstack-javascript-project-137-ebon.vercel.app/)
